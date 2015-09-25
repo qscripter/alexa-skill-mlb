@@ -1,30 +1,30 @@
-TeamIntent {Diamondbacks|Team}
-TeamIntent {Braves|Team}
-TeamIntent {Orioles|Team}
-TeamIntent {Red Sox|Team}
-TeamIntent {Cubs|Team}
-TeamIntent {White Sox|Team}
-TeamIntent {Reds|Team}
-TeamIntent {Indians|Team}
-TeamIntent {Rockies|Team}
-TeamIntent {Tigers|Team}
-TeamIntent {Astros|Team}
-TeamIntent {Royals|Team}
-TeamIntent {Angels|Team}
-TeamIntent {Dodgers|Team}
-TeamIntent {Marlins|Team}
-TeamIntent {Brewers|Team}
-TeamIntent {Twins|Team}
-TeamIntent {Mets|Team}
-TeamIntent {Yankees|Team}
-TeamIntent {Athletics|Team}
-TeamIntent {Phillies|Team}
-TeamIntent {Pirates|Team}
-TeamIntent {Cardinals|Team}
-TeamIntent {Padres|Team}
-TeamIntent {Giants|Team}
-TeamIntent {Mariners|Team}
-TeamIntent {Rays|Team}
-TeamIntent {Rangers|Team}
-TeamIntent {Blue Jays|Team}
-TeamIntent {Nationals|Team}
+TeamIntent the {Diamondbacks|Team} today
+TeamIntent the {Braves|Team} today
+TeamIntent the {Orioles|Team} today
+TeamIntent the {Red Sox|Team} today
+TeamIntent the {Cubs|Team} today
+TeamIntent the {White Sox|Team} today
+TeamIntent the {Reds|Team} today
+TeamIntent the {Indians|Team} today
+TeamIntent the {Rockies|Team} today
+TeamIntent the {Tigers|Team} today
+TeamIntent the {Astros|Team} today
+TeamIntent the {Royals|Team} today
+TeamIntent the {Angels|Team} today
+TeamIntent the {Dodgers|Team} today
+TeamIntent the {Marlins|Team} today
+TeamIntent the {Brewers|Team} today
+TeamIntent the {Twins|Team} today
+TeamIntent the {Mets|Team} today
+TeamIntent the {Yankees|Team} today
+TeamIntent the {Athletics|Team} today
+TeamIntent the {Phillies|Team} today
+TeamIntent the {Pirates|Team} today
+TeamIntent the {Cardinals|Team} today
+TeamIntent the {Padres|Team} today
+TeamIntent the {Giants|Team} today
+TeamIntent the {Mariners|Team} today
+TeamIntent the {Rays|Team} today
+TeamIntent the {Rangers|Team} today
+TeamIntent the {Blue Jays|Team} today
+TeamIntent the {Nationals|Team} today

@@ -2,4 +2,4 @@
 An alexa skill for asking about MLB starting pitchers
 
 ## Sample Interaction
-```Ask starting pitcher for Dodgers```
+```Ask who's pitching for the Dodgers today```
