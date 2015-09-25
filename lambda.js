@@ -178,12 +178,16 @@ function getGame(team, date) {
   var deferred = Q.defer();
   var url = getDateApiUrl(date) + 'grid.json';
   request(url, function(error, response, body) {
-    var json = JSON.parse(body);
-    var game = _.find(json.data.games.game, function(game) {
-      return team.toLowerCase() === game.home_team_name.toLowerCase() || team.toLowerCase() === game.away_team_name.toLowerCase();
-    });
-    if (game) {
-      deferred.resolve(game);
+    if (!error && response.statusCode === 200) {
+      var json = JSON.parse(body);
+      var game = _.find(json.data.games.game, function(game) {
+        return team.toLowerCase() === game.home_team_name.toLowerCase() || team.toLowerCase() === game.away_team_name.toLowerCase();
+      });
+      if (game) {
+        deferred.resolve(game);
+      } else {
+        deferred.reject();
+      }
     } else {
       deferred.reject();
     }
