@@ -159,7 +159,7 @@ function getDateSpeech(date) {
   return moment(date).calendar(today, {
     sameDay: '[Today]',
     nextDay: '[Tomorrow]',
-    nextWeek: 'dddd',
+    nextWeek: '[on] dddd',
     lastDay: '[Yesterday]',
     lastWeek: '[Last] dddd'
   });
