@@ -1,6 +1,7 @@
 var request = require('request');
 var _ = require('lodash');
 var Q = require('q');
+var moment = require('moment');
 
 var mlbApi = 'http://gd2.mlb.com/components/game/mlb/';
 
@@ -114,39 +115,58 @@ function getWelcomeResponse(callback) {
 function findPitcher(intent, session, callback) {
   var cardTitle = intent.slots.Team.value + ' Starting Pitcher';
   var teamSlot = intent.slots.Team;
+  var dateSlot = intent.slots.Date;
   var repromptText = "";
   var sessionAttributes = {};
   var shouldEndSession = true;
   var speechOutput = "";
+  var date;
+
+  if (dateSlot) {
+    date = new Date(dateSlot.value);
+  } else {
+    date = new Date();
+  }
+
   if (teamSlot) {
-    getGame(teamSlot.value).then(getGameDetail, function (error) {
-      var speechOutput = "I can't find a game for the " + teamSlot.value + ' today.';
+    getGame(teamSlot.value, date).then(function (game) {
+      return getGameDetail(game, date);
+    }, function (error) {
+      var speechOutput = [
+        'I can\'t find a game for the',
+        teamSlot.value,
+        moment(date).fromNow()
+      ].join(' ');
       callback(sessionAttributes,
            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
-    }).then(function (speechOutput) {
+    }).then(function (gameDetail) {
+      var speechOutput = generatePitcherSpeech(gameDetail, date);
       callback(sessionAttributes,
            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
     }, function (error) {
-      var speechOutput = "I had trouble finding the pitcher for the " + teamSlot.value;
+      var speechOutput = [
+        'I had trouble finding a starting pitcher for the',
+        teamSlot.value,
+        moment(date).fromNow()
+      ].join(' ');
       callback(sessionAttributes,
            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
     });
   }
 }
 
-function getDateApiUrl() {
-  var today = new Date();
+function getDateApiUrl(date) {
   var url = mlbApi +
-    'year_' + today.getFullYear() +
-    '/month_' + ('0' + (today.getMonth()+1)).slice(-2) +
-    '/day_' + today.getDate() +
+    'year_' + date.getFullYear() +
+    '/month_' + ('0' + (date.getMonth()+1)).slice(-2) +
+    '/day_' + date.getDate() +
     '/';
   return url;
 }
 
-function getGame(team) {
+function getGame(team, date) {
   var deferred = Q.defer();
-  var url = getDateApiUrl() + 'grid.json';
+  var url = getDateApiUrl(date) + 'grid.json';
   request(url, function(error, response, body) {
     var json = JSON.parse(body);
     var game = _.find(json.data.games.game, function(game) {
@@ -161,24 +181,16 @@ function getGame(team) {
   return deferred.promise;
 }
 
-function getGameDetail(game) {
+function getGameDetail(game, date) {
   var deferred = Q.defer();
   var gameId = game.id;
   gameId = gameId.split('/').join('_');
   gameId = gameId.split('-').join('_');
-  var url = getDateApiUrl() + 'gid_' + gameId + '/linescore.json';
+  var url = getDateApiUrl(date) + 'gid_' + gameId + '/linescore.json';
   request(url, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       var json = JSON.parse(body);
-      var homeTeam = json.data.game.home_team_name;
-      var awayTeam = json.data.game.away_team_name;
-      var homePitcher = json.data.game.home_probable_pitcher;
-      var awayPitcher = json.data.game.away_probable_pitcher;
-      var speechResponse = '';
-      speechResponse += generatePitcherText(awayTeam, awayPitcher);
-      speechResponse += ' is pitching against ';
-      speechResponse += generatePitcherText(homeTeam, homePitcher);
-      deferred.resolve(speechResponse);
+      deferred.resolve(json.data.game);
     } else {
       deferred.reject();
     }
@@ -186,7 +198,25 @@ function getGameDetail(game) {
   return deferred.promise;
 }
 
-function generatePitcherText(team, pitcher) {
+function generatePitcherSpeech(gameDetail, date) {
+  var homeTeam = gameDetail.home_team_name;
+  var awayTeam = gameDetail.away_team_name;
+  var homePitcher = gameDetail.home_probable_pitcher;
+  var awayPitcher = gameDetail.away_probable_pitcher;
+  var speechResponse = [
+    generatePitcherText(awayPitcher),
+    'is pitching for the',
+    awayTeam,
+    'against',
+    generatePitcherText(homePitcher),
+    'for the',
+    homeTeam,
+    moment(date).fromNow()
+  ].join(' ');
+  return speechResponse;
+}
+
+function generatePitcherText(pitcher) {
   var speechResponse = '';
   if (pitcher.throwinghand === 'RHP') {
     speechResponse = 'Right handed pitcher ';
@@ -194,7 +224,6 @@ function generatePitcherText(team, pitcher) {
     speechResponse = 'Left haned pitcher ';
   }
   speechResponse += pitcher.first_name + ' ' + pitcher.last_name;
-  speechResponse += ' for the ' + team;
   return speechResponse;
 }
 

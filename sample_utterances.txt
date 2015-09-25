@@ -1,30 +1,30 @@
-TeamIntent the {Diamondbacks|Team} today
-TeamIntent the {Braves|Team} today
-TeamIntent the {Orioles|Team} today
-TeamIntent the {Red Sox|Team} today
-TeamIntent the {Cubs|Team} today
-TeamIntent the {White Sox|Team} today
-TeamIntent the {Reds|Team} today
-TeamIntent the {Indians|Team} today
-TeamIntent the {Rockies|Team} today
-TeamIntent the {Tigers|Team} today
-TeamIntent the {Astros|Team} today
-TeamIntent the {Royals|Team} today
-TeamIntent the {Angels|Team} today
-TeamIntent the {Dodgers|Team} today
-TeamIntent the {Marlins|Team} today
-TeamIntent the {Brewers|Team} today
-TeamIntent the {Twins|Team} today
-TeamIntent the {Mets|Team} today
-TeamIntent the {Yankees|Team} today
-TeamIntent the {Athletics|Team} today
-TeamIntent the {Phillies|Team} today
-TeamIntent the {Pirates|Team} today
-TeamIntent the {Cardinals|Team} today
-TeamIntent the {Padres|Team} today
-TeamIntent the {Giants|Team} today
-TeamIntent the {Mariners|Team} today
-TeamIntent the {Rays|Team} today
-TeamIntent the {Rangers|Team} today
-TeamIntent the {Blue Jays|Team} today
-TeamIntent the {Nationals|Team} today
+TeamIntent the {Diamondbacks|Team} {today|Date}
+TeamIntent the {Braves|Team} {tomorrow|Date}
+TeamIntent the {Orioles|Team} on {Thursday|Date}
+TeamIntent the {Red Sox|Team} {Monday|Date}
+TeamIntent the {Cubs|Team} {next Friday|Date}
+TeamIntent the {White Sox|Team} on {Sunday|Date}
+TeamIntent the {Reds|Team} {Saturday|Date}
+TeamIntent the {Indians|Team} {today|Date}
+TeamIntent the {Rockies|Team} {today|Date}
+TeamIntent the {Tigers|Team} {today|Date}
+TeamIntent the {Astros|Team} {today|Date}
+TeamIntent the {Royals|Team} {today|Date}
+TeamIntent the {Angels|Team} {today|Date}
+TeamIntent the {Dodgers|Team} {today|Date}
+TeamIntent the {Marlins|Team} {today|Date}
+TeamIntent the {Brewers|Team} {today|Date}
+TeamIntent the {Twins|Team} {today|Date}
+TeamIntent the {Mets|Team} {today|Date}
+TeamIntent the {Yankees|Team} {today|Date}
+TeamIntent the {Athletics|Team} {today|Date}
+TeamIntent the {Phillies|Team} {today|Date}
+TeamIntent the {Pirates|Team} {today|Date}
+TeamIntent the {Cardinals|Team} {today|Date}
+TeamIntent the {Padres|Team} {today|Date}
+TeamIntent the {Giants|Team} {today|Date}
+TeamIntent the {Mariners|Team} {today|Date}
+TeamIntent the {Rays|Team} {today|Date}
+TeamIntent the {Rangers|Team} {today|Date}
+TeamIntent the {Blue Jays|Team} {today|Date}
+TeamIntent the {Nationals|Team} {today|Date}

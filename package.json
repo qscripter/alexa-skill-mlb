@@ -6,7 +6,8 @@
   "dependencies": {
     "lodash": "~3.10.1",
     "request": "~2.63.0",
-    "q": "~1.4.1"
+    "q": "~1.4.1",
+    "moment": "~2.10.6"
   },
   "devDependencies": {
     "gulp": "~3.9.0",
