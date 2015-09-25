@@ -121,10 +121,13 @@ function findPitcher(intent, session, callback) {
   var shouldEndSession = true;
   var speechOutput = "";
   var date;
-
+  console.log(intent.slots.Date);
   if (dateSlot) {
+    console.log(dateSlot.value);
     date = new Date(dateSlot.value);
+    console.log(date);
   } else {
+    console.log('no dateSlot');
     date = new Date();
   }
 
@@ -135,7 +138,7 @@ function findPitcher(intent, session, callback) {
       var speechOutput = [
         'I can\'t find a game for the',
         teamSlot.value,
-        moment(date).fromNow()
+        getDateSpeech(date)
       ].join(' ');
       callback(sessionAttributes,
            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
@@ -147,12 +150,23 @@ function findPitcher(intent, session, callback) {
       var speechOutput = [
         'I had trouble finding a starting pitcher for the',
         teamSlot.value,
-        moment(date).fromNow()
+        getDateSpeech(date)
       ].join(' ');
       callback(sessionAttributes,
            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
     });
   }
+}
+
+function getDateSpeech(date) {
+  var today = moment(new Date()).startOf('day');
+  return moment(date).calendar(today, {
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]',
+    nextWeek: 'dddd',
+    lastDay: '[Yesterday]',
+    lastWeek: '[Last] dddd'
+  });
 }
 
 function getDateApiUrl(date) {
@@ -211,7 +225,7 @@ function generatePitcherSpeech(gameDetail, date) {
     generatePitcherText(homePitcher),
     'for the',
     homeTeam,
-    moment(date).fromNow()
+    getDateSpeech(date)
   ].join(' ');
   return speechResponse;
 }
