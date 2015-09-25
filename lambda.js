@@ -121,7 +121,7 @@ function findPitcher(intent, session, callback) {
   var shouldEndSession = true;
   var speechOutput = "";
   var date;
-  if (dateSlot) {
+  if (dateSlot.value) {
     date = new Date(dateSlot.value);
   } else {
     date = new Date();
