@@ -119,7 +119,15 @@ function findPitcher(intent, session, callback) {
   var shouldEndSession = true;
   var speechOutput = "";
   if (teamSlot) {
-    getGame(teamSlot.value).then(getGameDetail).then(function (speechOutput) {
+    getGame(teamSlot.value).then(getGameDetail, function (error) {
+      var speechOutput = "I can't find a game for the " + teamSlot.value + ' today.';
+      callback(sessionAttributes,
+           buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    }).then(function (speechOutput) {
+      callback(sessionAttributes,
+           buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    }, function (error) {
+      var speechOutput = "I had trouble finding the pitcher for the " + teamSlot.value;
       callback(sessionAttributes,
            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
     });
