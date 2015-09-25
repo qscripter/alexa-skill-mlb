@@ -121,13 +121,9 @@ function findPitcher(intent, session, callback) {
   var shouldEndSession = true;
   var speechOutput = "";
   var date;
-  console.log(intent.slots.Date);
   if (dateSlot) {
-    console.log(dateSlot.value);
     date = new Date(dateSlot.value);
-    console.log(date);
   } else {
-    console.log('no dateSlot');
     date = new Date();
   }
 
@@ -217,27 +213,42 @@ function generatePitcherSpeech(gameDetail, date) {
   var awayTeam = gameDetail.away_team_name;
   var homePitcher = gameDetail.home_probable_pitcher;
   var awayPitcher = gameDetail.away_probable_pitcher;
-  var speechResponse = [
-    generatePitcherText(awayPitcher),
-    'is pitching for the',
-    awayTeam,
-    'against',
-    generatePitcherText(homePitcher),
-    'for the',
-    homeTeam,
-    getDateSpeech(date)
-  ].join(' ');
+  var speechResponse;
+  if (homePitcher.last_name && awayPitcher.last_name) {
+    speechResponse = [
+      generatePitcherText(awayPitcher),
+      'is pitching for the',
+      awayTeam,
+      'against',
+      generatePitcherText(homePitcher),
+      'for the',
+      homeTeam,
+      getDateSpeech(date)
+    ].join(' ');
+  } else {
+    speechResponse = [
+      'Starting pitcher information isn\'t available for the',
+      awayTeam,
+      'against the',
+      homeTeam,
+      getDateSpeech(date)
+    ].join(' ');
+  }
   return speechResponse;
 }
 
 function generatePitcherText(pitcher) {
   var speechResponse = '';
   if (pitcher.throwinghand === 'RHP') {
-    speechResponse = 'Right handed pitcher ';
+    speechResponse = 'Right handed pitcher';
   } else if (pitcher.throwinghand === 'LHP') {
-    speechResponse = 'Left haned pitcher ';
+    speechResponse = 'Left handed pitcher';
   }
-  speechResponse += pitcher.first_name + ' ' + pitcher.last_name;
+  speechResponse = [
+    speechResponse,
+    pitcher.first_name,
+    pitcher.last_name
+  ].join(' ');
   return speechResponse;
 }
 
